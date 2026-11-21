@@ -371,10 +371,6 @@ def run_agent(
             "newer values."
         ),
     },
-        {
-            "role": "user",
-            "content": user_message
-        }
     ]
     if conversation_history:
         messages.extend(conversation_history)
