@@ -161,7 +161,7 @@ def test_cancel_booking_requires_confirmation(
                 "booking_id": 2
             },
         }
-    ]
+    ] 
 
     # Critical safety assertion:
     # cancellation must NOT execute before confirmation.
