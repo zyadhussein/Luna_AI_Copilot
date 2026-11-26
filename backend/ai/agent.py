@@ -4,6 +4,7 @@ from rag.retrieval import retrieve_policy
 from openai import OpenAI
 from sqlalchemy.orm import Session
 from uuid import uuid4
+from services.automation import notify_booking_created
 from models import AvailabilityCheck, QuoteRequest, BookingCreate
 from services.bookings import (
     get_booking,
@@ -508,7 +509,13 @@ def confirm_action(
             db,
         )
 
-
+        if pending.tool_name == "create_booking":
+            try:
+                notify_booking_created(result)
+            except Exception as error:
+                print(
+                    f"n8n booking-created webhook failed: {error}"
+                )
         return {
             "status": "completed",
             "tool": pending.tool_name,
